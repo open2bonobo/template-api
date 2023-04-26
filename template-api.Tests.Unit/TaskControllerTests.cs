@@ -41,25 +41,25 @@ namespace back_end.Tests
         {
             new Backend.Models.Task() {
                         Id = 0,
-                        Name = "Woshing",
+                        Name = "Woshing",Description = "Description 1",
                         Priority = 1,
                         Status = Backend.Models.Status.Completed
                     },
                     new Backend.Models.Task() {
                         Id = 0,
-                        Name = "Tooth",
+                        Name = "Tooth",Description = "Description 1",
                         Priority = 1,
                         Status = Backend.Models.Status.InProgress
                     },
                     new Backend.Models.Task() {
                         Id = 0,
-                        Name = "Breakfast",
+                        Name = "Breakfast",Description = "Description 1",
                         Priority = 1,
                         Status = Backend.Models.Status.Initial
                     },
                     new Backend.Models.Task() {
                         Id = 0,
-                        Name = "HorsingRound",
+                        Name = "HorsingRound",Description = "Description 1",
                         Priority = 1,
                         Status = Backend.Models.Status.Initial
                     }
@@ -142,6 +142,7 @@ namespace back_end.Tests
             {
                 Id = 0,
                 Name = "Woshing",
+                Description = "Description 1",
                 Priority = 1,
                 Status = Backend.Models.Status.Completed
             };
@@ -149,6 +150,7 @@ namespace back_end.Tests
             {
                 Id = 0,
                 Name = "Woshing",
+                Description = "Description 1",
                 Priority = 1,
                 Status = Backend.Models.Status.Completed
             };
@@ -201,6 +203,7 @@ namespace back_end.Tests
             var input = new TaskCreateDto()
             {
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -208,6 +211,7 @@ namespace back_end.Tests
             {
                 Id = 3,
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -215,6 +219,7 @@ namespace back_end.Tests
             {
                 Id = 3,
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -249,6 +254,7 @@ namespace back_end.Tests
             var input = new TaskCreateDto()
             {
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -256,6 +262,7 @@ namespace back_end.Tests
             {
                 Id = 3,
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -277,6 +284,7 @@ namespace back_end.Tests
             var input = new TaskCreateDto()
             {
                 Name = "name",
+                Description = "Description 1",
                 Priority = 5,
                 Status = Backend.Models.Status.Completed
             };
@@ -299,9 +307,9 @@ namespace back_end.Tests
         {
             // Arrange
             int id = 1;
-            TaskUpdateDto input = new TaskUpdateDto { Name = "Updated Task", Priority = 2, Status = Backend.Models.Status.InProgress };
-            Backend.Models.Task existingTask = new Backend.Models.Task { Id = id, Name = "Task 1", Priority = 1, Status = Backend.Models.Status.Completed };
-            Backend.Models.Task updatedTask = new Backend.Models.Task { Id = id, Name = input.Name, Priority = input.Priority, Status = input.Status };
+            TaskUpdateDto input = new TaskUpdateDto { Name = "Updated Task", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
+            Backend.Models.Task existingTask = new Backend.Models.Task { Id = id, Name = "Task 1", Description = "Description 1", Priority = 1, Status = Backend.Models.Status.Completed };
+            Backend.Models.Task updatedTask = new Backend.Models.Task { Id = id, Name = input.Name, Description = input.Description, Priority = input.Priority, Status = input.Status };
             TaskReadDto expectedDto = _mapper.Map<TaskReadDto>(updatedTask);
 
             A.CallTo(() => _repository.GetByIdAsync(id)).Returns(existingTask);
@@ -336,8 +344,8 @@ namespace back_end.Tests
         {
             // Arrange
             int id = 1;
-            TaskUpdateDto input = new TaskUpdateDto { Name = "", Priority = 6, Status = Backend.Models.Status.InProgress };
-            Backend.Models.Task existingTask = new Backend.Models.Task { Id = id, Name = "Task 1", Priority = 1, Status = Backend.Models.Status.Completed };
+            TaskUpdateDto input = new TaskUpdateDto { Name = "",Description = "Description 1", Priority = 6, Status = Backend.Models.Status.InProgress };
+            Backend.Models.Task existingTask = new Backend.Models.Task { Id = id, Name = "Task 1", Description = "Description 1", Priority = 1, Status = Backend.Models.Status.Completed };
 
             A.CallTo(() => _repository.GetByIdAsync(id)).Returns(existingTask);
 
@@ -352,9 +360,9 @@ namespace back_end.Tests
         {
             // Arrange
             var id = 1;
-            var input = new TaskUpdateDto { Name = "New Task", Priority = 2, Status = Backend.Models.Status.InProgress };
-            var existingTask = new Backend.Models.Task { Id = id, Name = "Old Task", Priority = 3, Status = Backend.Models.Status.Completed };
-            var updatedTask = new Backend.Models.Task { Id = id, Name = input.Name, Priority = input.Priority, Status = input.Status };
+            var input = new TaskUpdateDto { Name = "New Task", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
+            var existingTask = new Backend.Models.Task { Id = id, Name = "Old Task", Description = "Description 1", Priority = 3, Status = Backend.Models.Status.Completed };
+            var updatedTask = new Backend.Models.Task { Id = id, Name = input.Name, Description = input.Description, Priority = input.Priority, Status = input.Status };
             A.CallTo(() => _repository.GetByIdAsync(id)).Returns(existingTask);
             A.CallTo(() => _repository.UpdateAsync(A<Backend.Models.Task>.Ignored)).DoesNothing();
             A.CallTo(() => _repository.SaveChanges()).Returns(true);
@@ -372,7 +380,7 @@ namespace back_end.Tests
         {
             // Arrange
             var id = 1;
-            var input = new TaskUpdateDto { Name = "New Task", Priority = 2, Status = Backend.Models.Status.InProgress };
+            var input = new TaskUpdateDto { Name = "New Task", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
 
             A.CallTo(() => _repository.GetByIdAsync(id)).Returns<Backend.Models.Task>(null);
 
@@ -387,8 +395,8 @@ namespace back_end.Tests
         {
             // Arrange
             var id = 1;
-            var input = new TaskUpdateDto { Name = "New Task", Priority = 2, Status = Backend.Models.Status.InProgress };
-            var existingTask = new Backend.Models.Task { Id = id, Name = "Old Task", Priority = 3, Status = Backend.Models.Status.Completed };
+            var input = new TaskUpdateDto { Name = "New Task", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
+            var existingTask = new Backend.Models.Task { Id = id, Name = "Old Task", Description = "Description 1", Priority = 3, Status = Backend.Models.Status.Completed };
             A.CallTo(() => _repository.GetByIdAsync(id)).Returns(existingTask);
             A.CallTo(() => _repository.UpdateAsync(A<Backend.Models.Task>.Ignored)).DoesNothing();
             A.CallTo(() => _repository.SaveChanges()).Returns(false);
@@ -404,7 +412,7 @@ namespace back_end.Tests
         {
             // Arrange
             var id = 1;
-            var input = new TaskUpdateDto { Name = "New Task", Priority = 2, Status = Backend.Models.Status.InProgress };
+            var input = new TaskUpdateDto { Name = "New Task", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
             A.CallTo(() => _repository.GetByIdAsync(id)).Throws<Exception>();
 
             // Act
@@ -419,7 +427,7 @@ namespace back_end.Tests
         {
             // Arrange
             var taskId = 1;
-            Backend.Models.Task task = new Backend.Models.Task { Id = taskId, Name = "Task 1", Priority = 1, Status = Backend.Models.Status.InProgress };
+            Backend.Models.Task task = new Backend.Models.Task { Id = taskId, Name = "Task 1", Description = "Description 1", Priority = 1, Status = Backend.Models.Status.InProgress };
             A.CallTo(() => _repository.GetByIdAsync(taskId)).Returns(task);
             A.CallTo(() => _repository.DeleteAsync(task));
             // Act
@@ -453,7 +461,7 @@ namespace back_end.Tests
         {
             // Arrange
             var taskId = 1;
-            var task = new Backend.Models.Task { Id = taskId, Name = "Task 1", Priority = 1, Status = Backend.Models.Status.InProgress };
+            var task = new Backend.Models.Task { Id = taskId, Name = "Task 1", Description = "Description 1", Priority = 1, Status = Backend.Models.Status.InProgress };
             A.CallTo(() => _repository.GetByIdAsync(taskId)).Returns(task);
             A.CallTo(() => _repository.DeleteAsync(task));
             A.CallTo(() => _repository.SaveChanges()).Returns(Task.FromResult(false));
@@ -549,6 +557,7 @@ namespace back_end.Tests
             {
                 Id = taskId,
                 Name = "Task 1",
+                Description = "Description 1",
                 Priority = 2,
                 Status = Backend.Models.Status.InProgress
             };

@@ -88,6 +88,7 @@ namespace Backend.Controllers
                 var updatingTask = _mapper.Map<Backend.Models.Task>(input);
 
                 task.Name = updatingTask.Name;
+                task.Description = updatingTask.Description;
                 task.Priority = updatingTask.Priority;
                 task.Status = updatingTask.Status;
 

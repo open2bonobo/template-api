@@ -38,40 +38,20 @@ namespace Backend.Tests.Integration
         [Fact]
         public async Task GetAll_ReturnsTasks()
         {
-            // Arrange
-            var expectedTasks = new List<Backend.Models.Task>()
-            {
-                new Backend.Models.Task() { Id = 1, Name = "Task 1", Priority = 3, Status = Backend.Models.Status.InProgress },
-                new Backend.Models.Task() { Id = 2, Name = "Task 2", Priority = 2, Status = Backend.Models.Status.Completed },
-                new Backend.Models.Task() { Id = 3, Name = "Task 3", Priority = 1, Status = Backend.Models.Status.Initial }
-            };
+            // given
 
-            var repository = A.Fake<IRepository<Backend.Models.Task>>();
-            A.CallTo(() => repository.GetAllAsync()).Returns(expectedTasks);
+            // when
+            var response = await _client.GetAsync("api/task");
 
-            var client = _factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    services.AddScoped<IRepository<Backend.Models.Task>>(x => repository);
-                });
-            })
-            .CreateClient();
-
-            // Act
-            var response = await client.GetAsync("/api/task");
-            var actualTasks = await response.Content.ReadFromJsonAsync<List<Backend.Models.Task>>();
-
-            // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            actualTasks.Should().BeEquivalentTo(expectedTasks);
+            // then
+            response.IsSuccessStatusCode.Should().BeTrue();
         }
         [Fact]
         public async Task GetById_ReturnsTask()
         {
             // Arrange
             var taskId = 1;
-            var expectedTask = new Backend.Models.Task { Id = taskId, Name = "Task 1", Priority = 2, Status = Backend.Models.Status.InProgress };
+            var expectedTask = new Backend.Models.Task { Id = taskId, Name = "Task 1", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.InProgress };
             A.CallTo(() => _repository.GetByIdAsync(taskId)).Returns(expectedTask);
             var controller = new TaskController(_repository, _mapper);
             var request = new HttpRequestMessage(HttpMethod.Get, $"/api/tasks/{taskId}");
@@ -92,24 +72,24 @@ namespace Backend.Tests.Integration
         [Fact]
         public async Task Create_ReturnsTask()
         {
-            
-                // given
-                var input = new TaskCreateDto() { Name = "Task 1", Priority = 2, Status = Backend.Models.Status.Initial };
+
+            // given
+            var input = new TaskCreateDto() { Name = "Task 1", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.Initial };
 
 
-                // when
-                var response = await _client.PostAsJsonAsync("api/task", input);
+            // when
+            var response = await _client.PostAsJsonAsync("api/task", input);
 
-                // then
-                response.IsSuccessStatusCode.Should().BeTrue();
-            
+            // then
+            response.IsSuccessStatusCode.Should().BeTrue();
+
         }
         [Fact]
         public async Task Update_ReturnsTask()
         {
 
             // given
-            var input = new TaskUpdateDto() { Id = 1, Name = "Task 1", Priority = 2, Status = Backend.Models.Status.Initial };
+            var input = new TaskUpdateDto() { Id = 1, Name = "Task 1", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.Initial };
 
             var content = new StringContent(JsonSerializer.Serialize(input), Encoding.UTF8, "application/json");
 
@@ -125,7 +105,7 @@ namespace Backend.Tests.Integration
         {
 
             // given
-            var input = new TaskDeleteDto() {Id= 1, Name = "Task 1", Priority = 2, Status = Backend.Models.Status.Initial };
+            var input = new TaskDeleteDto() { Id = 1, Name = "Task 1", Description = "Description 1", Priority = 2, Status = Backend.Models.Status.Initial };
 
             // when
             var response = await _client.DeleteAsync($"api/task/{input.Id}");

@@ -22,26 +22,26 @@ namespace Backend.Data
 
                 context.Tasks.AddRange(
                     new Backend.Models.Task() {
-                        Id = 0,
                         Name = "Woshing",
+                        Description = "i am here 0",
                         Priority = 1,
                         Status = Status.Completed
                     },
                     new Backend.Models.Task() {
-                        Id = 0,
                         Name = "Tooth",
+                        Description = "i am here 1",
                         Priority = 1,
                         Status = Status.InProgress
                     },
                     new Backend.Models.Task() {
-                        Id = 0,
                         Name = "Breakfast",
+                        Description = "i am here 2",
                         Priority = 1,
                         Status = Status.Initial
                     },
-                    new Backend.Models.Task() {
-                        Id = 0,
+                    new Backend.Models.Task() {                   
                         Name = "HorsingRound",
+                        Description = "i am here 3",
                         Priority = 1,
                         Status = Status.Initial
                     });
