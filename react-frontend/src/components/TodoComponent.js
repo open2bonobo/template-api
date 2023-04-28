@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 const TodoComponent = () => {
   const url = "https://localhost:7278/api/task";
   const optionsPriority = [
-    { value: 1, label: "Low" },
-    { value: 2, label: "Medium-Low" },
-    { value: 3, label: "Medium" },
-    { value: 4, label: "Medium-High" },
-    { value: 5, label: "High" },
+    { value: 0, label: "Low" },
+    { value: 1, label: "Medium-Low" },
+    { value: 2, label: "Medium" },
+    { value: 3, label: "Medium-High" },
+    { value: 4, label: "High" },
   ];
   const optionsStatus = [
     { value: 0, label: "Initial" },
@@ -30,7 +30,7 @@ const TodoComponent = () => {
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks();
-      setTasks(tasksFromServer);
+      setTasks(tasksFromServer.sort((a, b) => a.id - b.id));
     };
 
     getTasks();
@@ -53,7 +53,7 @@ const TodoComponent = () => {
       method: "DELETE",
     });
     res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
+      ? setTasks(tasks.filter((task) => task.id !== id).sort((a, b) => a.id - b.id))
       : alert("Error Deleting This Task");
   };
   const onEditData = async (task) => {
@@ -85,7 +85,7 @@ const TodoComponent = () => {
       }
       return todo;
     });
-    setTasks(updatedTodos);
+    setTasks(updatedTodos.sort((a, b) => a.id - b.id));
     setTaskToEdit(defaultFormData);
   };
   const addTask = async (task) => {
@@ -105,7 +105,7 @@ const TodoComponent = () => {
 
     const data = await res.json();
 
-    setTasks([...tasks, data]);
+    setTasks([...tasks, data].sort((a, b) => a.id - b.id));
   };
 
   return (

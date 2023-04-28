@@ -12,8 +12,7 @@ namespace Backend.Dtos
         [Required]
         public string Description { get; set; }
         [Required]
-        [Range(1, 5)]
-        public int Priority { get; set; }
+        public Priority Priority { get; set; }
         [Required]
         public Status Status { get; set; }
     }

@@ -8,6 +8,8 @@ const AddTask = ({
   optionsStatus,
   taskToEdit,
 }) => {
+  const [errorNameMessage, setNameErrorMessage] = useState("");
+  const [errorDescriptionMessage, setDescriptionErrorMessage] = useState("");
   const [name, setName] = useState("default");
   const [description, setDescription] = useState("default");
   const [prioritySelectedOption, setPrioritySelectedOption] = useState(
@@ -16,6 +18,14 @@ const AddTask = ({
   const [statusSelectedOption, setStatusSelectedOption] = useState(
     optionsStatus[0]
   );
+  function validateNameInput(input) {
+    const regex = /^[a-zA-Z0-9\s]*$/;
+    return input.length <= 50 && regex.test(input);
+  }
+  function validateDescriptionInput(input) {
+    const regex = /^[a-zA-Z0-9\s]*$/;
+    return input.length <= 500 && regex.test(input);
+  }
   useEffect(() => {
     console.log(taskToEdit);
     if (taskToEdit) {
@@ -46,7 +56,28 @@ const AddTask = ({
     );
     setStatusSelectedOption(statusSelectedOption);
   }
-
+  function handleInputNameChange(event) {
+    const value = event.target.value;
+    if (validateNameInput(value)) {
+      setName(value);
+      setNameErrorMessage("");
+    } else {
+      setNameErrorMessage(
+        "Input should only contain text, alphabet symbols, and numbers, and be no longer than 50 characters."
+      );
+    }
+  }
+  function handleInputDescriptionChange(event) {
+    const value = event.target.value;
+    if (validateDescriptionInput(value)) {
+      setDescription(value);
+      setDescriptionErrorMessage("");
+    } else {
+      setDescriptionErrorMessage(
+        "Input should only contain text, alphabet symbols, and numbers, and be no longer than 500 characters."
+      );
+    }
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name || !description) {
@@ -84,8 +115,10 @@ const AddTask = ({
           type="text"
           placeholder="Add Name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleInputNameChange}
+          required
         ></input>
+        {errorNameMessage && <p style={{ color: "red" }}>{errorNameMessage}</p>}
       </div>
       <div className="form-control">
         <label for="formDescription">Description</label>
@@ -94,8 +127,10 @@ const AddTask = ({
           type="text"
           placeholder="Add Description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={handleInputDescriptionChange}
+          required
         ></input>
+        {errorDescriptionMessage && <p style={{ color: "red" }}>{errorDescriptionMessage}</p>}
       </div>
       <div className="form-control">
         <label>Select an option:</label>

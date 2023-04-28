@@ -24,25 +24,25 @@ namespace Backend.Data
                     new Backend.Models.Task() {
                         Name = "Woshing",
                         Description = "i am here 0",
-                        Priority = 1,
+                        Priority = Priority.LowMedium,
                         Status = Status.Completed
                     },
                     new Backend.Models.Task() {
                         Name = "Tooth",
                         Description = "i am here 1",
-                        Priority = 1,
+                        Priority = Priority.Low,
                         Status = Status.InProgress
                     },
                     new Backend.Models.Task() {
                         Name = "Breakfast",
                         Description = "i am here 2",
-                        Priority = 1,
+                        Priority = Priority.Medium,
                         Status = Status.Initial
                     },
-                    new Backend.Models.Task() {                   
+                    new Backend.Models.Task() {
                         Name = "HorsingRound",
                         Description = "i am here 3",
-                        Priority = 1,
+                        Priority = Priority.MediumHigh,
                         Status = Status.Initial
                     });
 

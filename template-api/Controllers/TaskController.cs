@@ -113,7 +113,7 @@ namespace Backend.Controllers
         }
         [HttpDelete("{id}")]
         [EnableCors("AllowAll")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
             try
             {
