@@ -10,6 +10,19 @@ namespace Backend.Extensions
             this IServiceCollection services
             )
         {
+
+            services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
@@ -17,7 +30,7 @@ namespace Backend.Extensions
             services.AddDbContext<AppDbContext>(opt =>
                  opt.UseInMemoryDatabase("InMemoryDB"));
 
-            
+
             services.AddScoped<IRepository<Backend.Models.Task>, Repository<Backend.Models.Task>>();
 
             return services;

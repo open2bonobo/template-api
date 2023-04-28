@@ -1,6 +1,7 @@
 using AutoMapper;
 using Backend.Dtos;
 using Backend.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -21,6 +22,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
+        [EnableCors("AllowAll")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -39,6 +41,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [EnableCors("AllowAll")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try
@@ -56,6 +59,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
+        [EnableCors("AllowAll")]
         public async Task<IActionResult> Create(TaskCreateDto input)
         {
             try
@@ -76,6 +80,7 @@ namespace Backend.Controllers
             }
         }
         [HttpPut("{id}")]
+        [EnableCors("AllowAll")]
         public async Task<IActionResult> Update(int id, TaskUpdateDto input)
         {
             try
@@ -107,6 +112,7 @@ namespace Backend.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [EnableCors("AllowAll")]
         public async Task<ActionResult> Delete(int id)
         {
             try
