@@ -1,7 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const AddTask = ({ onAdd,onEditData, optionsPriority, optionsStatus, taskToEdit }) => {
+const AddTask = ({
+  onAdd,
+  onEditData,
+  optionsPriority,
+  optionsStatus,
+  taskToEdit,
+}) => {
   const [name, setName] = useState("default");
   const [description, setDescription] = useState("default");
   const [prioritySelectedOption, setPrioritySelectedOption] = useState(
@@ -59,7 +65,8 @@ const AddTask = ({ onAdd,onEditData, optionsPriority, optionsStatus, taskToEdit 
         name,
         description,
         prioritySelectedOption,
-        statusSelectedOption,});
+        statusSelectedOption,
+      });
       console.log("save changes");
     }
     setName("default");
@@ -69,10 +76,11 @@ const AddTask = ({ onAdd,onEditData, optionsPriority, optionsStatus, taskToEdit 
     taskToEdit.id = 0;
   };
   return (
-    <form className="add-form" onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Name</label>
+        <label for="formName">Name</label>
         <input
+          id="formName"
           type="text"
           placeholder="Add Name"
           value={name}
@@ -80,33 +88,38 @@ const AddTask = ({ onAdd,onEditData, optionsPriority, optionsStatus, taskToEdit 
         ></input>
       </div>
       <div className="form-control">
-        <label>Description</label>
+        <label for="formDescription">Description</label>
         <input
+          id="formDescription"
           type="text"
           placeholder="Add Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></input>
       </div>
-      <div>
-        <label htmlFor="dropdown">Select an option:</label>
+      <div className="form-control">
+        <label>Select an option:</label>
         <select
-          id="dropdown"
+          className="btn"
           value={prioritySelectedOption.value}
           onChange={handlePriorityDropdownChange}
         >
           {optionsPriority.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              className="dropdown-item"
+              key={option.value}
+              value={option.value}
+            >
               {option.label}
             </option>
           ))}
         </select>
         <p>You selected: {prioritySelectedOption.label}</p>
       </div>
-      <div>
-        <label htmlFor="dropdown">Select an option:</label>
+      <div className="form-control">
+        <label>Select an option:</label>
         <select
-          id="dropdown"
+          className="btn"
           value={statusSelectedOption.value}
           onChange={handleStatusDropdownChange}
         >

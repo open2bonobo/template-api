@@ -17,14 +17,15 @@ const TodoComponent = () => {
     { value: 1, label: "InProgress" },
     { value: 2, label: "Completed" },
   ];
-  const [tasks, setTasks] = useState([]);
-  const [taskToEdit, setTaskToEdit] = useState({
+  const defaultFormData = {
     id: 0,
     name: "default",
     description: "default",
     priority: optionsPriority[0].value,
     status: optionsStatus[0].value,
-  });
+  };
+  const [tasks, setTasks] = useState([]);
+  const [taskToEdit, setTaskToEdit] = useState(defaultFormData);
 
   useEffect(() => {
     const getTasks = async () => {
@@ -43,24 +44,17 @@ const TodoComponent = () => {
     return data;
   };
 
-  // Fetch Task
-  const fetchTask = async (id) => {
-    const res = await fetch(`${url}/${id}`);
-    const data = await res.json();
-
-    return data;
-  };
   const onEdit = (task) => {
     setTaskToEdit(task);
   };
   const deleteTask = async (id) => {
     console.log("DELETE", id);
     const res = await fetch(`${url}/${id}`, {
-      method: 'DELETE',
-    })
+      method: "DELETE",
+    });
     res.status === 200
       ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error Deleting This Task')
+      : alert("Error Deleting This Task");
   };
   const onEditData = async (task) => {
     const newTask = {
@@ -92,6 +86,7 @@ const TodoComponent = () => {
       return todo;
     });
     setTasks(updatedTodos);
+    setTaskToEdit(defaultFormData);
   };
   const addTask = async (task) => {
     const newTask = {
@@ -122,9 +117,13 @@ const TodoComponent = () => {
         taskToEdit={taskToEdit}
         onEditData={onEditData}
       />
-      <ListView tasks={tasks} onDelete={deleteTask} onEdit={onEdit} 
-          optionsPriority={optionsPriority}
-          optionsStatus={optionsStatus}/>
+      <ListView
+        tasks={tasks}
+        onDelete={deleteTask}
+        onEdit={onEdit}
+        optionsPriority={optionsPriority}
+        optionsStatus={optionsStatus}
+      />
     </div>
   );
 };
