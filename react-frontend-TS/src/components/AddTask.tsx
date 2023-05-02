@@ -57,7 +57,7 @@ const AddTask = () => {
         <select
           className="btn"
           value={task.priority}
-          onChange={handleTaskChange({ field: "description" })}
+          onChange={handleTaskChange({ field: "priority" })}
         >
           {Object.values(todoPriorityLabelsMap).map((option) => (
             <option
