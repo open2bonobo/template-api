@@ -1,5 +1,5 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import { GET_TASKS, DELETE_TASK, UPDATE_TASK, CREATE_TASK, UPDATE_TASK_TO_EDIT } from "./constants";
+import { GET_TASKS, DELETE_TASK, UPDATE_TASK, CREATE_TASK, UPDATE_TASK_TO_EDIT, SET_SHOW_ADD_FORM } from "./constants";
 import { TodoItem } from "../types";
 import { fetchTasks, fetchDeleteTask, fetchUpdateTask, fetchCreateTask } from "../api";
 
@@ -39,5 +39,6 @@ export const actions = {
       return rejectWithValue(e.response.data);
     }
   }),
-  setTaskToEdit: createAction<{ task: TodoItem }>(UPDATE_TASK_TO_EDIT)
+  setTaskToEdit: createAction<{ task: TodoItem }>(UPDATE_TASK_TO_EDIT),
+  setShowAddForm: createAction<boolean>(SET_SHOW_ADD_FORM)
 }

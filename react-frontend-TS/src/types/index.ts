@@ -12,5 +12,7 @@ export type TodoItem = {
 
 export type RootStore = {
   tasks: TodoItem[]
-  taskToEdit: TodoItem
+  taskToEdit: TodoItem,
+  isShowAddForm: boolean,
 }
+

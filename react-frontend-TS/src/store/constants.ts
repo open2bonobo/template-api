@@ -5,6 +5,7 @@ export const DELETE_TASK = "tasks/deleteTask"
 export const UPDATE_TASK = "tasks/updateTask"
 export const UPDATE_TASK_TO_EDIT = "tasks/updateTask"
 export const CREATE_TASK = "tasks/createTask"
+export const SET_SHOW_ADD_FORM = "tasks/setShowAddForm"
 
 
 

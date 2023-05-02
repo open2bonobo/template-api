@@ -1,32 +1,37 @@
-import React, { ChangeEvent, useCallback } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import { RootStore, TodoItem } from "../types";
 import { useAppDispatch } from "../store";
 import { actions } from "../store/actions";
 import { useSelector } from "react-redux";
 import { todoPriorityLabelsMap, todoStatusLabelsMap } from "../store/constants";
 
-
 const AddTask = () => {
-  const dispatch = useAppDispatch()
-  const task = useSelector((store: RootStore) => store.taskToEdit)
+  const dispatch = useAppDispatch();
+  const task = useSelector((store: RootStore) => store.taskToEdit);
 
-  const handleTaskChange = useCallback(({ field }: { field: keyof TodoItem }) =>
-     (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleTaskChange = useCallback(
+    ({ field }: { field: keyof TodoItem }) => (
+      event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
       const value = event.currentTarget.value;
-       dispatch(actions.setTaskToEdit({ task: {
-           ...task,
-           [field]: value
-         }
-      }))
-    }
-  , [task, dispatch])
+      dispatch(
+        actions.setTaskToEdit({
+          task: {
+            ...task,
+            [field]: value,
+          },
+        })
+      );
+    },
+    [task, dispatch]
+  );
 
-
-  const onSubmit = () => {
-    if (task.id) {
-      dispatch(actions.createTask({ task }))
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (task.id === 0) {
+      dispatch(actions.createTask({ task }));
     } else {
-      dispatch(actions.updateTask({ task }))
+      dispatch(actions.updateTask({ task }));
     }
   };
 
@@ -59,13 +64,13 @@ const AddTask = () => {
           value={task.priority}
           onChange={handleTaskChange({ field: "priority" })}
         >
-          {Object.values(todoPriorityLabelsMap).map((option) => (
+          {Object.entries(todoPriorityLabelsMap).map((option) => (
             <option
               className="dropdown-item"
-              key={option}
-              value={option}
+              key={+option[0]}
+              value={+option[0]}
             >
-              {option}
+              {option[1]}
             </option>
           ))}
         </select>
@@ -78,9 +83,9 @@ const AddTask = () => {
           value={task.status}
           onChange={handleTaskChange({ field: "status" })}
         >
-          {Object.values(todoStatusLabelsMap).map((option) => (
-            <option key={option} value={option}>
-              {option}
+          {Object.entries(todoStatusLabelsMap).map((option) => (
+            <option key={+option[0]} value={+option[0]}>
+              {option[1]}
             </option>
           ))}
         </select>
