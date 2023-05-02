@@ -6,26 +6,32 @@ import { RootStore, TodoItem } from "../types";
 import { useSelector } from "react-redux";
 
 const ListView = () => {
-  const dispatch = useAppDispatch()
-  const tasks = useSelector((store: RootStore) => store.tasks)
+  const dispatch = useAppDispatch();
+  const tasks = useSelector((store: RootStore) => store.tasks);
 
   useEffect(() => {
-    dispatch(actions.getTasks())
+    dispatch(actions.getTasks());
   }, [dispatch]);
 
-  const onDelete = useCallback((id: number) => {
-    dispatch(actions.deleteTask({ id }))
-  }, [dispatch])
+  const onDelete = useCallback(
+    (id: number) => {
+      dispatch(actions.deleteTask({ id }));
+    },
+    [dispatch]
+  );
 
-  const onEdit = useCallback((task: TodoItem) => {
-    dispatch(actions.setTaskToEdit({ task }))
-  }, [dispatch])
-
+  const onEdit = useCallback(
+    (task: TodoItem) => {
+      dispatch(actions.setTaskToEdit({ task }));
+      dispatch(actions.setShowAddForm(true));
+    },
+    [dispatch]
+  );
 
   return (
     <div>
-      {tasks.length ? (
-        tasks.map((task) => (
+      {tasks.length
+        ? tasks.map((task) => (
             <Task
               key={task.id}
               task={task}
@@ -33,9 +39,7 @@ const ListView = () => {
               onEdit={onEdit}
             />
           ))
-      ) : (
-        "No Tasks exist"
-      )}
+        : "No Tasks exist"}
     </div>
   );
 };

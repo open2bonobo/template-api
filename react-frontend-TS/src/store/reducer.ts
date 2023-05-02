@@ -25,6 +25,13 @@ export const reducer = createReducer<RootStore>(
         );
         state.isShowAddForm = false;
         state.tasks = [...otherTasks, action.payload];
+        state.taskToEdit = {
+          id: 0,
+          name: "default",
+          description: "default",
+          priority: 0,
+          status: 0,
+        };
       })
       .addCase(actions.deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(({ id }) => action.payload !== id);
@@ -32,6 +39,13 @@ export const reducer = createReducer<RootStore>(
       .addCase(actions.createTask.fulfilled, (state, action) => {
         state.isShowAddForm = false;
         state.tasks = [...state.tasks, action.payload];
+        state.taskToEdit = {
+          id: 0,
+          name: "default",
+          description: "default",
+          priority: 0,
+          status: 0,
+        };
       })
       .addCase(actions.setTaskToEdit, (state, action) => {
         state.taskToEdit = {
