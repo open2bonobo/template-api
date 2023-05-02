@@ -58,8 +58,9 @@ const AddTask = () => {
         ></input>
       </div>
       <div className="form-control">
-        <label>Select an option:</label>
+        <label htmlFor="prioritySelect">Select an option:</label>
         <select
+          id="prioritySelect"
           className="btn"
           value={task.priority}
           onChange={handleTaskChange({ field: "priority" })}

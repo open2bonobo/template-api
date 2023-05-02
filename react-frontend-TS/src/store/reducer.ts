@@ -1,17 +1,18 @@
-import { RootStore, TodoPriority, TodoStatus } from "../types";
+import { RootStore, TodoItem, TodoPriority, TodoStatus } from "../types";
 import { actions } from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
+export const defaultTask: TodoItem ={
+  id: 0,
+  name: "default",
+  description: "default",
+  priority: 0,
+  status: 0,
+}
 
 export const reducer = createReducer<RootStore>(
   {
     tasks: [],
-    taskToEdit: {
-      id: 0,
-      name: "default",
-      description: "default",
-      priority: 0,
-      status: 0,
-    },
+    taskToEdit: defaultTask,
     isShowAddForm: false,
   },
   (builder) => {
@@ -25,13 +26,7 @@ export const reducer = createReducer<RootStore>(
         );
         state.isShowAddForm = false;
         state.tasks = [...otherTasks, action.payload];
-        state.taskToEdit = {
-          id: 0,
-          name: "default",
-          description: "default",
-          priority: 0,
-          status: 0,
-        };
+        state.taskToEdit = defaultTask;
       })
       .addCase(actions.deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(({ id }) => action.payload !== id);
@@ -39,13 +34,7 @@ export const reducer = createReducer<RootStore>(
       .addCase(actions.createTask.fulfilled, (state, action) => {
         state.isShowAddForm = false;
         state.tasks = [...state.tasks, action.payload];
-        state.taskToEdit = {
-          id: 0,
-          name: "default",
-          description: "default",
-          priority: 0,
-          status: 0,
-        };
+        state.taskToEdit = defaultTask;
       })
       .addCase(actions.setTaskToEdit, (state, action) => {
         state.taskToEdit = {
