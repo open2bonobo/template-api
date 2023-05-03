@@ -10,3 +10,5 @@ dotnet run
 ## start frontend
 cd react-frontend-TS
 npm start
+
+# FULL STACK
