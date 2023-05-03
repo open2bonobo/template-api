@@ -12,9 +12,11 @@ const AddForm = () => {
     dispatch(actions.setShowAddForm(!isShowAddForm));
   };
   return (
-    <header className="container">
-      <Button showAddTask={isShowAddForm} onClick={onClick} />
-      {isShowAddForm && <AddTask />}
+    <header className="row justify-content-center">
+      <div className="col-6">
+        <Button showAddTask={isShowAddForm} onClick={onClick} />
+        {isShowAddForm && <AddTask />}
+      </div>
     </header>
   );
 };
@@ -23,4 +25,3 @@ export default AddForm;
 function dispatch(arg0: any) {
   throw new Error("Function not implemented.");
 }
-

@@ -29,17 +29,19 @@ const ListView = () => {
   );
 
   return (
-    <div>
-      {tasks.length
-        ? tasks.map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              onDelete={onDelete}
-              onEdit={onEdit}
-            />
-          ))
-        : "No Tasks exist"}
+    <div className="row justify-content-center">
+      <div className="col-6">
+        {tasks.length
+          ? tasks.map((task) => (
+              <Task
+                key={task.id}
+                task={task}
+                onDelete={onDelete}
+                onEdit={onEdit}
+              />
+            ))
+          : "No Tasks exist"}
+      </div>
     </div>
   );
 };

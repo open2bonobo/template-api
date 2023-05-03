@@ -36,10 +36,11 @@ const AddTask = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="form-control">
-        <label>Name</label>
+    <form onSubmit={onSubmit} className="row g-3">
+      <div className="col-md-12">
+        <label className="form-label">Name</label>
         <input
+          className="form-control"
           type="text"
           placeholder="Add Name"
           value={task.name}
@@ -47,9 +48,10 @@ const AddTask = () => {
           required
         />
       </div>
-      <div className="form-control">
-        <label>Description</label>
+      <div className="col-md-12">
+        <label className="form-label">Description</label>
         <input
+          className="form-control"
           type="text"
           placeholder="Add Description"
           value={task.description}
@@ -57,11 +59,13 @@ const AddTask = () => {
           required
         ></input>
       </div>
-      <div className="form-control">
-        <label htmlFor="prioritySelect">Select an option:</label>
+      <div className="col-md-12">
+        <label className="form-label" htmlFor="prioritySelect">
+          Select an option:
+        </label>
         <select
           id="prioritySelect"
-          className="btn"
+          className="form-select"
           value={task.priority}
           onChange={handleTaskChange({ field: "priority" })}
         >
@@ -77,10 +81,10 @@ const AddTask = () => {
         </select>
         <p>You selected: {todoPriorityLabelsMap[task.priority]}</p>
       </div>
-      <div className="form-control">
-        <label>Select an option:</label>
+      <div className="col-md-12">
+        <label className="form-label">Select an option:</label>
         <select
-          className="btn"
+          className="form-select"
           value={task.status}
           onChange={handleTaskChange({ field: "status" })}
         >
@@ -92,7 +96,7 @@ const AddTask = () => {
         </select>
         <p>You selected: {todoStatusLabelsMap[task.status]}</p>
       </div>
-      <input type="submit" value="Save Task" className="btn btn-block"></input>
+      <input type="submit" value="Save Task" className="btn btn-primary"></input>
     </form>
   );
 };
